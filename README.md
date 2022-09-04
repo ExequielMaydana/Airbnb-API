@@ -1,0 +1,2 @@
+Este es el proyecto final del modulo de Backend en Academlo, en el cual estamos trabajando con Node.js y Express, haciendo uso del gestor de bases de datos PostgreSQL.
+Dicho proyecto consta de hacer un clon de la siguiente web: https://www.airbnb.mx/
