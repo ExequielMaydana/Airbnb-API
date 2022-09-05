@@ -2,21 +2,29 @@ const usersControllers = require("./users.controllers");
 
 // servicio para mostrar todos los usuarios.
 const getAll = (req, res) => {
-  const data = usersControllers.getAllUsers();
-  return res.status(200).json({ items: data.length, users: data });
+  usersControllers
+    .getAllUsers()
+    .then((response) => {
+      return res.status(200).json({ items: response.length, users: response });
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
 };
 
 // servicio para mostrar un usuario por id.
 const getById = (req, res) => {
   const id = req.params.id;
-  const user = usersControllers.getUserById(id);
-  if (user) {
-    return res.status(200).json(user);
-  } else {
-    return res
-      .status(404)
-      .json({ message: `The user with the ${id} does not exist` });
-  }
+  usersControllers
+    .getUserById(id)
+    .then((response) => {
+      res.status(200).json(response);
+    })
+    .catch((err) => {
+      res
+        .status(404)
+        .json({ message: `The user with the ${id} does not exist` });
+    });
 };
 
 // servicio para crear un usuario.
@@ -48,10 +56,16 @@ const registerUser = (req, res) => {
       },
     });
   } else {
-    const response = usersControllers.createUser(data);
-    return res
-      .status(201)
-      .json({ message: "Successfully registered", user: response });
+    usersControllers
+      .createUser(data)
+      .then((response) => {
+        res
+          .status(201)
+          .json({ message: "Successfully registered", user: response });
+      })
+      .catch((err) => {
+        res.status(400).json({ err });
+      });
   }
 };
 
@@ -105,15 +119,15 @@ const updateUser = (req, res) => {
 // servicio para eliminar un usuario.
 const deleteUser = (req, res) => {
   const id = req.params.id;
-  const user = usersControllers.deleteUser(id);
-
-  if (user) {
-    return res.status(204).json();
-  } else {
-    return res
-      .status(400)
-      .json({ message: "You cannot delete a user that does not exist" });
-  }
+  usersControllers.deleteUser(id).then((response) => {
+    if (response) {
+      res.status(204).json();
+    } else {
+      res
+        .status(400)
+        .json({ message: "You cannot delete a user that does not exist"});
+    }
+  });
 };
 
 //! servicios protegidos.
@@ -170,13 +184,13 @@ const updateMyUser = (req, res) => {
 };
 
 const deleteMyUser = (req, res) => {
-    const id = req.user.id;
-    const user = usersControllers.deleteUser(id)
-    if(user){
-        return res.status(204).json()
-    }else{
-        return res.status(400).json({message: 'invalid ID'})
-    }
+  const id = req.user.id;
+  const user = usersControllers.deleteUser(id);
+  if (user) {
+    return res.status(204).json();
+  } else {
+    return res.status(400).json({ message: "invalid ID" });
+  }
 };
 
 module.exports = {
@@ -189,5 +203,5 @@ module.exports = {
   // progregidas
   getMyUser,
   updateMyUser,
-  deleteMyUser
+  deleteMyUser,
 };
