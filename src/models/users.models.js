@@ -7,13 +7,15 @@ const user = db.define('user', {
         type: DataTypes.UUID,
         allowNull: false,
     },
-    first_name: {
+    firstName: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        field: 'first_name'
     },
-    last_name: {
+    lastName: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        field: 'last_name'
     },
     email: {
         type: DataTypes.STRING,
@@ -30,9 +32,10 @@ const user = db.define('user', {
             min: 8
         }
     },
-    birthday_date: {
+    birthdayDate: {
         type: DataTypes.DATEONLY,
         allowNull: false,
+        field: 'birthday_date'
     },
     gender: {
         type: DataTypes.STRING,
@@ -56,20 +59,22 @@ const user = db.define('user', {
         allowNull: false
     },
     role: {
-        type: DataTypes.STRING,
+        type: DataTypes.UUID,
         allowNull: false,
         defaultValue: 'normal'
     },
-    profile_image: {
+    profileImage: {
         type: DataTypes.STRING,
         validate: {
             isUrl: true
-        }
+        },
+        field: 'profile_image'
     },
-    is_active: {
+    isActive: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
-        defaultValue: true
+        defaultValue: true,
+        field: 'is_active' 
     },
     verified: {
         type: DataTypes.BOOLEAN,

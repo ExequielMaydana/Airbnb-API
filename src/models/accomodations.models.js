@@ -35,17 +35,19 @@ const accomodations = db.define('accomodations', {
         type: DataTypes.INTEGER,
         allowNull: false
     },
-    host_id: {
+    hostId: {
         type: DataTypes.UUID,
-        allowNull: false
+        allowNull: false,
+        field: 'host_id'
     },
     score: {
         type: DataTypes.FLOAT,
         allowNull: false
     },
-    places_id: {
+    placesId: {
         type: DataTypes.UUID,
-        allowNull: false
+        allowNull: false,
+        field: 'places_id'
     },
     commision: {
         type: DataTypes.INTEGER,

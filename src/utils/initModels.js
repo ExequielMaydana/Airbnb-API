@@ -20,6 +20,14 @@ const initModels = () => {
     user.hasMany(reservations)
     reservations.belongsTo(user)
 
+    // un usuario puede ser dueno de muchos alojamientos y un alojamiento puede tener un solo dueno.
+    user.hasMany(accomodations)
+    accomodations.belongsTo(user)
+
+    // relacion muchos a muchos
+    user.belongsToMany(accomodations, {through: reservations});
+    accomodations.belongsToMany(user, {through: reservations});
+
     // un alojamiento puede tener muchas reservaciones pero una reservacion solo puede tener un solo alojamiento.
     accomodations.hasMany(reservations)
     reservations.belongsTo(accomodations)

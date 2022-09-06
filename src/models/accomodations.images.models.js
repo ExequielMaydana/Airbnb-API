@@ -11,13 +11,17 @@ const accomodations_images = db.define('accomodations_images', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    accomodations_id: {
+    accomodationsId: {
         type: DataTypes.UUID,
-        allowNull: false
+        allowNull: false,
+        field: 'accomodations_id'
     },
     url: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        validate:{
+            isUrl
+        }
     }
 })
 

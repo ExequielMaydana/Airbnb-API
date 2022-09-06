@@ -15,9 +15,10 @@ const users_images = db.define('users_images', {
             isUrl
         }
     },
-    user_id: {
+    userId: {
         type: DataTypes.UUID,
-        allowNull: false
+        allowNull: false,
+        field: 'user_id'
     }
 })
 

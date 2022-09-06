@@ -53,29 +53,28 @@ const createUser = async (data) => {
     return newUser
 }
 
-const editUser = (id, data) => {
-    const filteredUser = usersDB.findIndex(user => user.id === id);
-    if(filteredUser !== -1){
-        usersDB[filteredUser] = {
-            id: id,
-            first_name: data.first_name,
-            last_name: data.last_name,
-            email: data.email,
-            password: hashPasswordSync(data.password),
-            birthday_date: data.birthday_date,
-            gender: data.gender,
-            phone: data.phone,
-            dni: data.dni,
-            country: data.country,
-            addres: data.addres,
-            role: data.rol,
-            profile_image: data.profile_image,
-            is_active: data.is_active,
-            verified: false
+const editUser = async(userId, data, userRol) => {
+   if(userRol === 'admin') {
+    const {id, password, verified, ...newData} = data
+    const response = await user.update({
+        ...newData
+    }, {
+        where: {
+            id: userId
         }
-        return usersDB[filteredUser];
-    }
-    return createUser(data);
+    })
+    return response
+   }else{
+    const {id, password, verified, role, ...newData} = data
+    const response = await user.update({
+        ...newData
+    }, {
+        where: {
+            id: userId
+        }
+    })
+    return response
+   }
 }
 
 const deleteUser = async (id) => {

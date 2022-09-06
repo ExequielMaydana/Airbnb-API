@@ -23,11 +23,13 @@ const places = db.define('places', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    create_at: {
+    createAt: {
         type: DataTypes.DATE,
+        field: 'create_at'
     },
-    update_at: {
-        type: DataTypes.DATE
+    updateAt: {
+        type: DataTypes.DATE,
+        field: 'update_at'
     }
 })
 

@@ -7,9 +7,10 @@ const reservations = db.define('reservations', {
         type: DataTypes.UUID,
         allowNull: false
     },
-    user_id: {
+    userId: {
         type: DataTypes.UUID,
-        allowNull: false
+        allowNull: false,
+        field: 'user_id'
     },
     arrival: {
         type: DataTypes.DATEONLY,
@@ -19,9 +20,10 @@ const reservations = db.define('reservations', {
         type: DataTypes.DATEONLY,
         allowNull: false
     },
-    accomodation_id: {
+    accomodationId: {
         type: DataTypes.UUID,
-        allowNull: false
+        allowNull: false,
+        field: 'accomodation_id'
     },
     adults: {
         type: DataTypes.INTEGER,
@@ -43,15 +45,17 @@ const reservations = db.define('reservations', {
         type: DataTypes.FLOAT,
         allowNull: false
     },
-    is_finished: {
+    isFinished: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
-        defaultValue: false
+        defaultValue: false,
+        field: 'is_finished'
     },
-    is_canceled: {
+    isCanceled: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
-        defaultValue: false
+        defaultValue: false.valueOf,
+        field: 'is_canceled'
     }
 })
 
