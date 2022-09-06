@@ -10,10 +10,7 @@ const users_images = db.define('users_images', {
     },
     url: {
         type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-            isUrl
-        }
+        allowNull: false
     },
     userId: {
         type: DataTypes.UUID,

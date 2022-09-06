@@ -58,11 +58,11 @@ const user = db.define('user', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    role: {
-        type: DataTypes.UUID,
-        allowNull: false,
-        defaultValue: 'normal'
-    },
+    // role: {
+    //     type: DataTypes.UUID,
+    //     allowNull: false,
+    //     defaultValue: 'normal'
+    // },
     profileImage: {
         type: DataTypes.STRING,
         validate: {

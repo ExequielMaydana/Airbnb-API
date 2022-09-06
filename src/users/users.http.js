@@ -125,7 +125,7 @@ const deleteUser = (req, res) => {
     } else {
       res
         .status(400)
-        .json({ message: "You cannot delete a user that does not exist"});
+        .json({ message: "You cannot delete a user that does not exist" });
     }
   });
 };

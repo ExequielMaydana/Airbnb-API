@@ -3,6 +3,7 @@ const {db} = require('../utils/database')
 
 const roles = db.define('roles', {
     id: {
+        primaryKey: true,
         type: DataTypes.UUID,
         allowNull: false
     },

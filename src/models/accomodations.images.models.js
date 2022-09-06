@@ -18,10 +18,7 @@ const accomodations_images = db.define('accomodations_images', {
     },
     url: {
         type: DataTypes.STRING,
-        allowNull: false,
-        validate:{
-            isUrl
-        }
+        allowNull: false
     }
 })
 

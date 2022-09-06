@@ -11,14 +11,17 @@ const initModels = () => {
     // un usuario tiene muchas imagenes pero una imagen tiene un solo usuario.
     user.hasMany(users_images)
     users_images.belongsTo(user)
-    
+
+    //? se comenta el role en el users.models y se agrega esto aca.
+    //Roles.hasMany(Users, { foreignKey: { name: "role_id", allowNull: false } });
     // un rol tiene muchos usuarios pero un usuario tiene un solo rol.
-    roles.hasMany(user)
+    roles.hasMany(user, {foreignKey: {name: "role_id", allowNull: false}});
     user.belongsTo(roles)
 
     // un usuario puede tener muchas reservaciones pero una reservacion solo pertenece a un usuario.
-    user.hasMany(reservations)
-    reservations.belongsTo(user)
+    //? esto se resume haciendolo en la linea 31, 32.
+    // user.hasMany(reservations)
+    // reservations.belongsTo(user)
 
     // un usuario puede ser dueno de muchos alojamientos y un alojamiento puede tener un solo dueno.
     user.hasMany(accomodations)
@@ -29,8 +32,9 @@ const initModels = () => {
     accomodations.belongsToMany(user, {through: reservations});
 
     // un alojamiento puede tener muchas reservaciones pero una reservacion solo puede tener un solo alojamiento.
-    accomodations.hasMany(reservations)
-    reservations.belongsTo(accomodations)
+    //? esto se resume haciendolo en la linea 31, 32.
+    // accomodations.hasMany(reservations)
+    // reservations.belongsTo(accomodations)
 
     // un alojamiento puede tener muchas imagenes pero dichas imagenes pertenecen a un solo alojamiento.
     accomodations.hasMany(accomodations_images)
