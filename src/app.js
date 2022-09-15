@@ -59,30 +59,6 @@ app.use("/api/v1/accommodations", accomodationsRouter)
 app.use("/api/v1/reservations", reservationRouter)
 app.use("/v1/doc", swaggweUi.serve, swaggweUi.setup(swaggerDoc))
 
-//! NO ME ANDA ESTO CHINGADA MADRE
-app.get('/', async (req, res) => {
-  try {
-    const data = await accomodations.create({ //? create -> es para crear uno solo.
-      id: "7e5fc196-8f45-46d2-bb2b-2f8b95340d50",
-      title: "premium - vistas 360 ciudad (alberca y gym)",
-      description: "asd",
-      guests: 6,
-      rooms: 3,
-      beds: 3,
-      bathrooms: 4.5,
-      price: 1536.00,
-      hostId :'74cd6011-7e76-4d6d-b25b-1d6e4182ec2f',
-      score: 0.00,
-      placeId: '0d907427-7623-4ec9-8c6d-270bb92fbbe7',
-      commision: 150.00
-    })
-    res.status(200).json({message: "All ok!", data})
-  } catch (err) {
-    res.status(400).json(err)
-  }
-})
-
-
 //? para probar que mi servidor funcione.
 app.listen(port, () => {
   console.log(`Server started ${port}`);
