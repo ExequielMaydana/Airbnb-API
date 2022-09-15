@@ -6,8 +6,8 @@ const hashPasswordSync = (plainTextPwd) => {
 }
 
 //? esta funcion compara la password en texto plano con la encriptada.
-const comparePassword = (plainPassword, hashPassword, done) => {
-    bcrypt.compare(plainPassword, hashPassword, done)
+const comparePassword = (plainPassword, hashPassword) => {
+    return bcrypt.compareSync(plainPassword, hashPassword)
 }
 
 module.exports = {

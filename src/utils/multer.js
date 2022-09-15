@@ -1,20 +1,15 @@
-const multer = require('multer');
-const path = require(path);
+const multer = require('multer')
+const path = require('path')
 
-const updateImg = () => {
-    const storage = multer.diskStorage({
-        destination: (req, file, cb) => {
-            cb(null, path.resolve('carpeta')); //? aqui debo poner mi ruta donde quiero guardar mis archivos.
-        },
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, path.resolve('upload/'))
+    },
     filename: (req, file, cb) => {
-        cb(null, Date.now() + '-' + req.filename);
+        cb(null, Date.now()+ '-' + file.originalname)
     }
-    })
+})
 
-    const upload = multer({storage});
-    return upload;
-}
+const upload = multer({storage})
 
-module.exports = {
-    updateImg
-}
+exports.upload = upload;

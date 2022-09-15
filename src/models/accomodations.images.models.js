@@ -3,8 +3,8 @@ const {db} = require('../utils/database')
 
 const accomodations_images = db.define('accomodations_images', {
     id: {
-        primaryKey: true,
         type: DataTypes.UUID,
+        primaryKey: true,
         allowNull: false
     },
     name: {
@@ -18,7 +18,10 @@ const accomodations_images = db.define('accomodations_images', {
     },
     url: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        validate: {
+            isUrl: true
+        }
     }
 })
 

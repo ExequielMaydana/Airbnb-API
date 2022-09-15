@@ -1,29 +1,34 @@
 const {DataTypes} = require('sequelize')
 const {db} = require('../utils/database')
+const user = require('./users.models')
 
 const reservations = db.define('reservations', {
     id: {
-        primaryKey: true,
         type: DataTypes.UUID,
+        primaryKey: true,
         allowNull: false
     },
     userId: {
         type: DataTypes.UUID,
         allowNull: false,
-        field: 'user_id'
+        field: 'user_id',
+        references: {
+            model: user,
+            key: 'id'
+        }
     },
     arrival: {
-        type: DataTypes.DATEONLY,
+        type: DataTypes.DATE,
         allowNull: false
     },
     departure: {
-        type: DataTypes.DATEONLY,
+        type: DataTypes.DATE,
         allowNull: false
     },
-    accomodationId: {
+    accommodationId: {
         type: DataTypes.UUID,
         allowNull: false,
-        field: 'accomodation_id'
+        field: 'accommodation_id'
     },
     adults: {
         type: DataTypes.INTEGER,
@@ -31,30 +36,30 @@ const reservations = db.define('reservations', {
     },
     kids: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
+        defaultValue: 0
     },
     babies: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
+        defaultValue: 0
     },
     pets: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
+        defaultValue: 0
     },
     score: {
-        type: DataTypes.FLOAT,
-        allowNull: false
+        type: DataTypes.DECIMAL,
     },
     isFinished: {
         type: DataTypes.BOOLEAN,
-        allowNull: false,
         defaultValue: false,
         field: 'is_finished'
     },
     isCanceled: {
         type: DataTypes.BOOLEAN,
-        allowNull: false,
-        defaultValue: false.valueOf,
+        defaultValue: false,
         field: 'is_canceled'
     }
 })

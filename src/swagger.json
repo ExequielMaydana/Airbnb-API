@@ -1,0 +1,169 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "description": "Esta API es un clon del Airbnb -> https://www.airbnb.mx/",
+        "version": "1.0.0",
+        "title": "Api Rest Clon de Airbnb",
+        "contact": {
+            "email": "maydanarkt@gmail.com"
+        }
+    },
+    "path": {
+        "/api/v1/users": {
+            "get": {
+                "description": "Obtener todos mis usuarios",
+                "tags": ["Users", "v1"],
+                "responses": {
+                    "200": {
+                        "description": "Obtenemos exitosamente todos los usuarios"
+                    },
+                    "400": {
+                        "description": "Generamos un error en caso de que la peticion no se resuelva"
+                    }
+                }
+            }
+        },
+        "/api/v1/users/{id}": {
+            "get": {
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del usuario",
+                        "type": ""
+                    }
+                ],
+                "response": {
+                    "200": {
+                        "description": "Obtenemos el usuario"
+                    },
+                    "400": {
+                        "description": "El usuario no existe"
+                    }
+                }
+            },
+            "delete": {
+                "response":{
+                    "200": {
+                        "description": "El usuario se elimina con exito"
+                    },
+                    "400": {
+                        "description": "El usuario no existe"
+                    }
+                }
+            },
+            "put":{
+                "response": {
+                    "200": {
+                        "description": "El usuario se modifica con exito"
+                    },
+                    "400": {
+                        "description": "El usuario no se pudo modificar porque faltaron datos"
+                    }
+                }
+            }
+        },
+        "/api/v1/accommodations":{
+            "get": {
+                "response": {
+                    "200": {
+                        "description": "Obtenemos todos los alojamientos"
+                    },
+                    "400": {
+                        "description": "No se encuentran accommodations registrados"
+                    }
+                }
+            },
+            "/api/v1/accommodations/placeId/make-accommodations": {
+                "post": {
+                    "response": {
+                        "201": {
+                            "description": "se creo con exito"
+                        },
+                        "400": {
+                            "description": "error"
+                        }
+                    }
+                }
+            },
+            "/api/v1/accommodations/id": {
+                "get": {
+                    "response": {
+                        "200": {
+                            "description": "veras el accommodations que buscas por id"
+                        },
+                        "400": {
+                            "description": "el accommodations que buscas no existe"
+                        }
+                    }
+                },
+                "delete": {
+                    "response": {
+                        "200": {
+                            "description": "Se elimino con exito"
+                        },
+                        "400": {
+                            "description": "Null"
+                        }
+                    }
+                },
+                "put": {
+                    "response": {
+                        "200": {
+                            "description": "los datos se modificaron exitosamente"
+                        },
+                        "400": {
+                            "description": "Error"
+                        }
+                    }
+                }
+            },
+            "/api/v1/reservations":{
+                "get": {
+                    "response": {
+                        "200": {
+                            "description": "mostramos todas las reservaciones"
+                        },
+                        "400": {
+                            "description": "No existe ninguna reservacion"
+                        }
+                    }
+                }
+            },
+            "/api/v1/accommodations-id/make-reservations":{
+                "post": {
+                    "response": {
+                        "201": {
+                            "description": "la reservacion se creo con exito"
+                        },
+                        "400": {
+                            "description": "Error"
+                        }
+                    }
+                }
+            },
+            "/api/v1/reservations/id": {
+                "put": {
+                    "response": {
+                        "200": {
+                            "description": "la reservacion se modifico con exito"
+                        },
+                        "400": {
+                            "description": "No se pudo realizar la peticion"
+                        }
+                    }
+                },
+                "delete": {
+                    "response": {
+                        "200": {
+                            "description": "la reservacion se elimino con exito"
+                        },
+                        "400": {
+                            "description": "No se pudo realizar tal peticion"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

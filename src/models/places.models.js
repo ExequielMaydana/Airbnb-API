@@ -3,8 +3,8 @@ const {db} = require('../utils/database')
 
 const places = db.define('places', {
     id: {
-        primaryKey: true,
         type: DataTypes.UUID,
+        primaryKey: true,
         allowNull: false
     },
     city: {
@@ -23,13 +23,13 @@ const places = db.define('places', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    createAt: {
+    createdAt: {
         type: DataTypes.DATE,
-        field: 'create_at'
+        field: 'created_at'
     },
-    updateAt: {
+    updatedAt: {
         type: DataTypes.DATE,
-        field: 'update_at'
+        field: 'updated_at'
     }
 })
 

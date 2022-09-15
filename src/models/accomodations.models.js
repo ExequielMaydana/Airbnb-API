@@ -1,5 +1,7 @@
 const {DataTypes} = require('sequelize')
 const {db} = require('../utils/database')
+const user = require('./users.models')
+const place = require('./places.models')
 
 const accomodations = db.define('accomodations', {
     id: {
@@ -12,10 +14,10 @@ const accomodations = db.define('accomodations', {
         allowNull: false
     },
     description: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false
     },
-    guest: {
+    guests: {
         type: DataTypes.INTEGER,
         allowNull: false
     },
@@ -28,30 +30,43 @@ const accomodations = db.define('accomodations', {
         allowNull: false
     },
     bathrooms: {
-        type: DataTypes.FLOAT,
+        type: DataTypes.DECIMAL,
         allowNull: false
     },
     price: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
         allowNull: false
     },
     hostId: {
         type: DataTypes.UUID,
         allowNull: false,
-        field: 'host_id'
+        field: 'userId',
+        references: {
+            model: user,
+            key: 'id'
+        }
     },
     score: {
         type: DataTypes.FLOAT,
-        allowNull: false
     },
-    placesId: {
+    placeId: {
         type: DataTypes.UUID,
         allowNull: false,
-        field: 'places_id'
+        field: 'place_id',
+        references: {
+            model: place,
+            key: 'id'
+        }
     },
     commision: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
         allowNull: false
+    },
+    isActive: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: true,
+        field: 'is_active'
     }
 })
 

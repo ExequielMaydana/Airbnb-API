@@ -5,7 +5,7 @@ const getAll = (req, res) => {
   usersControllers
     .getAllUsers()
     .then((response) => {
-      return res.status(200).json({ items: response.length, users: response });
+      res.status(200).json({ items: response.length, users: response });
     })
     .catch((err) => {
       res.status(400).json(err);
@@ -37,10 +37,7 @@ const registerUser = (req, res) => {
     !data.last_name ||
     !data.email ||
     !data.password ||
-    !data.birthday_date ||
-    !data.country ||
-    !data.addres ||
-    !data.dni
+    !data.birthday_date
   ) {
     return res.status(400).json({
       message: "You must provide the following data",
@@ -48,11 +45,8 @@ const registerUser = (req, res) => {
         first_name: "string",
         last_name: "string",
         email: "example@example.com",
-        password: "sdasd12313",
-        birthday_date: "DD/MM/YYYY",
-        country: "string",
-        addres: "string",
-        dni: "123123123",
+        password: "string",
+        birthday_date: "YYYY/DD/MM",
       },
     });
   } else {
@@ -64,7 +58,7 @@ const registerUser = (req, res) => {
           .json({ message: "Successfully registered", user: response });
       })
       .catch((err) => {
-        res.status(400).json({ err });
+        res.status(400).json({ message: err.errors[0].message });
       });
   }
 };
@@ -74,45 +68,18 @@ const updateUser = (req, res) => {
   const id = req.params.id;
   const data = req.body;
 
-  if (!data) {
+  if (!Object.keys(data).length) {
     return res.status(400).json({ message: "Missing Data" });
-  } else if (
-    !data.first_name ||
-    !data.last_name ||
-    !data.email ||
-    !data.password ||
-    !data.birthday_date ||
-    !data.gender ||
-    !data.phone ||
-    !data.dni ||
-    !data.country ||
-    !data.addres ||
-    !data.rol ||
-    !data.is_active
-  ) {
-    return res.status(400).json({
-      message: "You must complete all fields",
-      fields: {
-        first_name: "string",
-        last_name: "string",
-        email: "example@example.com",
-        password: "sdasd12313",
-        birthday_date: "DD/MM/YYYY",
-        gender: "string",
-        phone: "+543242342",
-        dni: "123123123",
-        country: "string",
-        addres: "string",
-        rol: "normal",
-        is_active: true,
-      },
-    });
   } else {
-    const response = usersControllers.editUser(id, data);
-    return res.status(200).json({
-      message: "Data have been successfully modified",
-      user: response,
-    });
+    usersControllers.editUser(id, data, req.user.rol).then(response => {
+      res.status(200).json({
+        message: "Data have been successfully modified",
+        user: response,
+      });
+    })
+    .catch((err) => {
+      res.status(400).json({message: err.errors[0].message})
+    })
   }
 };
 
@@ -133,65 +100,68 @@ const deleteUser = (req, res) => {
 //! servicios protegidos.
 const getMyUser = (req, res) => {
   const id = req.user.id;
-  const user = usersControllers.getUserById(id);
-  return res.status(200).json(user);
+  usersControllers.getUserById(id).then(response => {
+    res.status(200).json(response)
+  })
+  .catch((err) => {
+    res.status(400).json({message: err.errors[0].message})
+  })
 };
 
 const updateMyUser = (req, res) => {
   const id = req.user.id;
   const data = req.body;
 
-  if (!data) {
+  if (!Object.keys(data).length) {
     return res.status(400).json({ message: "Missing Data" });
-  } else if (
-    !data.first_name ||
-    !data.last_name ||
-    !data.email ||
-    !data.password ||
-    !data.birthday_date ||
-    !data.gender ||
-    !data.phone ||
-    !data.dni ||
-    !data.country ||
-    !data.addres ||
-    !data.rol ||
-    !data.is_active
-  ) {
-    return res.status(400).json({
-      message: "You must complete all fields",
-      fields: {
-        first_name: "string",
-        last_name: "string",
-        email: "example@example.com",
-        password: "sdasd12313",
-        birthday_date: "DD/MM/YYYY",
-        gender: "string",
-        phone: "+543242342",
-        dni: "123123123",
-        country: "string",
-        addres: "string",
-        rol: "normal",
-        is_active: true,
-      },
-    });
   } else {
-    const response = usersControllers.editUser(id, data);
-    return res.status(200).json({
-      message: "Data have been successfully modified",
-      user: response,
-    });
+    usersControllers.editUser(id, data, req.user.rol).then((response) => {
+      res.status(200).json({
+        message: "Data have been successfully modified",
+        user: response,
+      });
+    })
+    .catch((err) => {
+      res.status(400).json({message: err.errors[0].message})
+    })
   }
 };
 
 const deleteMyUser = (req, res) => {
   const id = req.user.id;
-  const user = usersControllers.deleteUser(id);
-  if (user) {
-    return res.status(204).json();
-  } else {
-    return res.status(400).json({ message: "invalid ID" });
-  }
+  usersControllers
+    .deleteUser(id)
+    .then((response) => {
+      res.status(204).json(response);
+    })
+    .catch(() => {
+      res.status(400).json({ message: "invalid ID" });
+    });
 };
+
+const postProfileImage = (req, res) => {
+  const userId = req.user.id;
+  const imgPath =
+    req.hostname + "8000" + "/api/v1/uploads/" + req.file.filename;
+  usersControllers
+    .editProfileImg(userId, imgPath)
+    .then((response) => {
+      res.status(200).json(response);
+    })
+    .catch((err) => console.log(err));
+};
+
+const getUserRole = (req, res) => {
+  const id = req.params.id
+  usersControllers.getUserWithRole(id)
+    .then((response) => {
+      res.status(200).json(response)
+    })
+    .catch(err =>  {
+      res.status(400).json({message: err})
+    })
+}
+
 
 module.exports = {
   getAll,
@@ -204,4 +174,6 @@ module.exports = {
   getMyUser,
   updateMyUser,
   deleteMyUser,
+  postProfileImage,
+  getUserRole
 };

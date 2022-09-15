@@ -3,9 +3,9 @@ const { db } = require('../utils/database')
 
 const user = db.define('user', {
     id: {
-        primaryKey: true,
         type: DataTypes.UUID,
-        allowNull: false,
+        primaryKey: true,
+        allowNull: false
     },
     firstName: {
         type: DataTypes.STRING,
@@ -17,8 +17,12 @@ const user = db.define('user', {
         allowNull: false,
         field: 'last_name'
     },
-    email: {
+    gender: {
         type: DataTypes.STRING,
+        allowNull: false
+    },
+    email: {
+        type: DataTypes.STRING(30),
         unique: true,
         allowNull: false,
         validate: {
@@ -26,43 +30,30 @@ const user = db.define('user', {
         }
     },
     password: {
-        type: DataTypes.INTEGER ,
-        allowNull: false,
-        validate: {
-            min: 8
-        }
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    phone: {
+        type: DataTypes.STRING,
+        allowNull: false
     },
     birthdayDate: {
         type: DataTypes.DATEONLY,
         allowNull: false,
         field: 'birthday_date'
     },
-    gender: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    phone: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-    },
     dni: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
+        type: DataTypes.STRING,
         unique: true
     },
-    country: {
-        type: DataTypes.STRING,
-        allowNull: false
+    roleId: {
+        type: DataTypes.UUID,
+        allowNull: false,
+        field: 'role_id'
     },
-    addres: {
+    address: {
         type: DataTypes.STRING,
-        allowNull: false
     },
-    // role: {
-    //     type: DataTypes.UUID,
-    //     allowNull: false,
-    //     defaultValue: 'normal'
-    // },
     profileImage: {
         type: DataTypes.STRING,
         validate: {
@@ -70,16 +61,25 @@ const user = db.define('user', {
         },
         field: 'profile_image'
     },
-    isActive: {
-        type: DataTypes.BOOLEAN,
+    status: {
+        type: DataTypes.STRING,
         allowNull: false,
-        defaultValue: true,
-        field: 'is_active' 
+        defaultValue: 'active', //active, non-active, deleted, suspended
     },
     verified: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
-        defaultValue: false
+        defaultValue: false,
+    },
+    createdAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        field: 'created_at'
+    },
+    updatedAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        field: 'updated_at'
     }
 })
 

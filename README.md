@@ -43,3 +43,27 @@ loggear mi usuario
 8. modificar roles
 9. eliminar un usuario
 10. modificar un usuario
+
+
+# rutas.
+
+## ACCOMODATIONS = alojamientos
+api/v1/accomodations
+
+/
+- GET
+- POST
+
+/:id
+- GET
+- DELETE
+- PUT
+- PATCH
+
+# revisar si esta disponible para alojar tal alojamiento.
+/:id/available/?arrival=value&departure=value
+- GET
+
+
+# Ejemplo para documentar la api
+https://petstore.swagger.io/v2/swagger.json

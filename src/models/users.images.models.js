@@ -4,13 +4,16 @@ const { db } = require('../utils/database')
 
 const users_images = db.define('users_images', {
     id: {
-        primaryKey: true,
         type: DataTypes.UUID,
+        primaryKey: true,
         allowNull: false
     },
     url: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        validate: {
+            isUrl: true
+        }
     },
     userId: {
         type: DataTypes.UUID,
