@@ -13,6 +13,16 @@ const db = new Sequelize({
   password: password,
   database: dataB,
   port: 5432,
+  logging: false,
+  dialectOptions: 
+    process.env.NODE_ENV === 'production'
+    ? {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false,
+      },
+    }
+    : {},
 });
 
 module.exports = {
