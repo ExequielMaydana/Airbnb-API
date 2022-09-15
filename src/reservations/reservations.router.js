@@ -9,6 +9,7 @@ router.route('/')
     .get(passport.authenticate('jwt', {session: false}) ,reservationServices.getAll)
 
 router.route('/:id')
+    .get(passport.authenticate('jwt', {session: false}), reservationServices.getById)
     .put(passport.authenticate('jwt', {session: false}), reservationServices.postReservation)
     .delete(passport.authenticate('jwt', {session: false}), reservationServices.deleteReservations)
 

@@ -11,6 +11,18 @@ const getAll = (req, res) => {
     })
 }
 
+const getById = (req, res) => {
+    const id = req.params.id
+
+    reservationControllers.getReservationById(id)
+        .then(response => {
+            res.status(200).json(response)
+        })
+        .catch(err => {
+            res.status(400).json(err)
+        })
+}
+
 const postReservation = (req, res) => {
     const userId = req.user.id
     const data = req.body
@@ -39,6 +51,7 @@ const deleteReservations = (req, res) => {
 
 module.exports = {
     getAll,
+    getById,
     postReservation,
     deleteReservations
 }

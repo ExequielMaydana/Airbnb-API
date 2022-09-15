@@ -8,14 +8,46 @@ const getAllReservations = async() => {
     const data = await reservation.findAll({
         include: [
             {
-                model: user
-            },
-            {
-                model: accommodations
+                model: accommodations,
+                attributes: {
+                    exclude: ['createdAt', 'updatedAt', 'userId', 'placeId', 'hostId']
+                }
+            },{
+                model: user,
+                as: 'user',
+                attributes: {
+                    exclude: ['password', 'createdAt', 'updatedAt', 'roleId']
+                }
             }
-        ]
+            
+        ],
+        attributes: {
+            exclude: ['createdAt', 'updatedAt']
+        }
     })
+    return data
+}
 
+const getReservationById = async(id)=> {
+    const data = await reservation.findOne({
+        where: {
+            id: id
+        },
+        include: [{
+            model: user,
+            attributes: {
+                exclude: ["createdAt", "updatedAt", "password",'roleId'],
+            }
+        },{
+            model: accommodations,
+            attributes: {
+                exclude: ['createdAt', 'updatedAt', 'userId', 'placeId', 'hostId']
+            }
+        }],
+        attributes: {
+            exclude: ['createdAt', 'updatedAt']
+        }
+    })
     return data
 }
 
@@ -54,5 +86,6 @@ module.exports = {
     getAllReservations,
     createReservation,
     deletReservations,
-    editReservation
+    editReservation,
+    getReservationById
 }
