@@ -1,6 +1,6 @@
 //? dependencias.
 const express = require("express");
-const swaggerUi = require('swagger-ui-express') //? para documentar la api.
+const swaggweUi = require('swagger-ui-express') //? para documentar la api.
 
 //? archivos de rutas.
 const userRouter = require("./users/users.router").router;
@@ -8,10 +8,11 @@ const authRouter = require("./auth/auth.router").router;
 const accomodationsRouter = require('./accomodations/accomodations.router').router
 const reservationRouter = require('./reservations/reservations.router').router
 
+const swaggerDoc = require('./swagger.json')
 const accomodations = require('./models/accomodations.models')
 const { initModels } = require("./utils/initModels");
 const generateData = require("./utils/defaultData")
-const swaggerDoc = require('./swagger.json')
+
 
 //? configuraciones iniciales.
 const { db } = require("./utils/database");
@@ -56,7 +57,7 @@ app.use("/api/v1/users", userRouter);
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/accommodations", accomodationsRouter)
 app.use("/api/v1/reservations", reservationRouter)
-app.use("/v1/doc", swaggerUi.serve, swaggerUi.setup(swaggerDoc))
+app.use("/v1/doc", swaggweUi.serve, swaggweUi.setup(swaggerDoc))
 
 //! NO ME ANDA ESTO CHINGADA MADRE
 app.get('/', async (req, res) => {
