@@ -1,5 +1,7 @@
 const { DataTypes } = require('sequelize')
 const { db } = require('../utils/database')
+const role = require('./role.models')
+
 
 const user = db.define('user', {
     id: {
@@ -49,7 +51,11 @@ const user = db.define('user', {
     roleId: {
         type: DataTypes.UUID,
         allowNull: false,
-        field: 'role_id'
+        field: 'role_id',
+        references: {
+            model: role,
+            key: 'id'
+        }
     },
     address: {
         type: DataTypes.STRING,
